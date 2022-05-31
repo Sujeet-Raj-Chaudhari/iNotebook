@@ -64,13 +64,13 @@ router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password can\'t be null').exists()
 ], async (req, res) => {
-    
+    let success = false;    
     //if there are errors, return the bad request and the error
 
     const errors = validationResult(req);
     if(!errors.isEmpty())
     {
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({success, errors: errors.array()});
     }
 
     const {email, password} = req.body;
@@ -80,14 +80,14 @@ router.post('/login', [
         
         if(!user)
         {
-            return res.status(400).json({error: 'Please try to login with correct credentials'});
+            return res.status(400).json({success, error: 'Please try to login with correct credentials'});
         }
 
         const passwordCompare = await bcrypt.compare(password, user.password);
 
         if(!passwordCompare)
         {
-            return res.status(400).json({error: 'Please try to login with correct credentials'});
+            return res.status(400).json({success, error: 'Please try to login with correct credentials'});
         }
 
         const data = {
@@ -95,10 +95,10 @@ router.post('/login', [
                 id: user.id
             }
         }
-
+        success = true;
         const authToken = jwt.sign(data, JWT_SECRET);
 
-        res.json({authToken})
+        res.json({success, authToken})
     }
     catch(error){
         console.error(error.message);
