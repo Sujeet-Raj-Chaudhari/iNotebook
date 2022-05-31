@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import noteContext from "../Context/Notes/noteContext";
 
-const Addnote = () => {
+const AddNote = () => {
     const context = useContext(noteContext);
   const { addNote } = context;
   
@@ -40,27 +40,29 @@ const Addnote = () => {
           <input
             type="text"
             className="form-control"
-            id="desccription"
+            id="description"
             name="description"
             onChange={onChange}
           />
         </div>
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            Check me out
+        <div className="mb-3">
+          <label htmlFor="tag" className="form-label">
+            Tag
           </label>
+          <input
+            type="text"
+            className="form-control"
+            id="tag"
+            name="tag"
+            onChange={onChange}
+          />
         </div>
         <button type="submit" className="btn btn-primary" onClick={handleClick}>
-          Submit
+          AddNote
         </button>
       </form>
     </div>
   );
 };
 
-export default Addnote;
+export default AddNote;

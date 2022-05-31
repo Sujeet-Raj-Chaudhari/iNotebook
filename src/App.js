@@ -8,7 +8,6 @@ import NoteState from "./Context/Notes/NoteState";
 import Alert from "./Components/Alert";
 
 function App() {
-  console.log("App is rendered")
   return (
     <>
       <NoteState>
